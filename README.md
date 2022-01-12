@@ -1,5 +1,6 @@
 # ocr-for-genshin-damage
 利用paddleocr和opencv-python对原神视频进行处理，对队伍总伤害作处理。
+
 use paddleocr and opencv-python to deal with the video of genshin impact to estimate the total damage of teams
 
 发出来仅仅是为了抛砖引玉，目前仍处于很不完善的阶段，大部分伤害能够被识别，但由于伤害数字会存在十多帧，且玩家转视角时伤害也会跟随转动，存在大量重复的情况。少部分伤害由于快速被覆盖，导致能识别的帧很短甚至没有，识别伤害要么错误，要么识别不到。
