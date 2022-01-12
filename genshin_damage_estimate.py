@@ -18,7 +18,7 @@ def video2img(path, name, video):
         if rval:
             frame = frame[86:950, 242:1650]  # 裁剪无关区域
             pic_path = path + '/'
-            cv2.imwrite(pic_path + name + '/_' + str(c) + '.jpg', frame)  # 存储为图像,保存名为 文件夹名_数字（第几个文件）.jpg
+            cv2.imwrite(pic_path + name + '/_' + str(c) + '.jpg', frame)
             cv2.waitKey(1)
         else:
             break
@@ -95,7 +95,7 @@ def batch_processing(directory, damage_type):  # ./sth/
                 worksheet.write(k, 4, damage_type)  # 第五列伤害类型
                 worksheet.write(k, 5, upleft_point[i][0])  # 第六，七列顶点横纵坐标
                 worksheet.write(k, 6, upleft_point[i][1])
-                worksheet.write(k, 7, str(round(credibility[i], 3)))
+                worksheet.write(k, 7, str(round(credibility[i], 3)))  # 第八列paddleocr给出的可信度
                 k = k + 1
     workbook.save(dealt_file_path + "pre_process.xls")
 
