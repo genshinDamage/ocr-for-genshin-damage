@@ -197,12 +197,12 @@ def main():
         for name in files:
             os.remove(os.path.join(root, name))
         os.rmdir(root)
-    """
+    
     for root, dirs, files in os.walk(video_path + '/pre_process'):
     for name in files:
         os.remove(os.path.join(root, name))
     os.rmdir(root)
-    """
+    
 
 
 if __name__ == '__main__':
