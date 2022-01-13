@@ -148,7 +148,7 @@ def data_dealing(file):
     df = df.drop(
         too_much[(too_much.credibility < 0.9) | (too_much.appearance > 0.8) | (too_much.appearance < 0.6)].index)
     # 删除出现4次以上，可信度小于0.9或长宽比不在0.6-0.8间的数据
-    df = df.loc[df.damage.apply(lambda num: 2 < len(num) < 8)]
+    df = df.loc[df.damage.apply(lambda num: 2 < len(num) < 7)]
     df.damage = df.damage.astype(dtype='int')
     types_damage = df.groupby('damage_type')['damage'].agg('sum')
     num_to_type = {1: '雷元素', 2: '超载', 3: '火元素', 4: '物理', 5: '水元素', 6: '风元素', 7: '岩元素', 8: '冰元素'}
@@ -166,6 +166,7 @@ def data_dealing(file):
     df_sim = df_sim.loc[list(set(df_sim.index).intersection(set(df_sim2.index)))]  # 别被那些无良自媒体误导了，用and取交集结果不对
 
     # 剩下一堆可信度贼高的重复数据，实在是不会处理了,出现7次以上就砍一半
+    df_sim = df_sim[(df_sim.length < 400) & (df_sim.height < 70)]
     one_size_fits_all = list(df_sim.groupby('damage').filter(lambda num: len(num) > 7).damage.drop_duplicates())
     df_sim.damage = df_sim.damage.apply(lambda num: int(num / 2) if num in one_size_fits_all else num)
 
@@ -175,6 +176,7 @@ def data_dealing(file):
         print(num_to_type[i] + "伤害合计" + str(types_damage_sim[i]) + '-' + str(types_damage[i]))
 
     left = unbelievable[~unbelievable.damage.isin(add.values())]
+    left = left.append([df[df.damage > 1000000]])
     left = left[left.credibility > 0.95]
     left = left.loc[left.damage.apply(lambda num: 2 < len(num) < 8)]
     left.damage = left.damage.astype(dtype='int')
